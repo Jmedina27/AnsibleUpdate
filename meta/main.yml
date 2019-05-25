@@ -1,7 +1,7 @@
 galaxy_info:
-  author: your name
-  description: your description
-  company: your company (optional)
+  author: Jesus Medina
+  description: This roles is used to update all Linux Servers and records any new updates to determine whether to restart their machine.
+  company: CSUSB
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
