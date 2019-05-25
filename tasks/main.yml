@@ -1,0 +1,53 @@
+---
+# tasks file for roles/update
+
+
+############### UPDATE LINUX MACHINES ######################
+- name: Update Ubuntu Machine 
+  apt: upgrade=dist update_cache=True
+  when:
+          - ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+  register: ubuntu_task_result
+
+- name: Update Fedora Machine
+  dnf: name=* state=latest
+  when:
+          - ansible_distribution == "Fedora"
+  register: fedora_task_result
+
+- name: Update CentOS Machine 
+  yum: name=* state=latest update_cache=True
+  when:
+          - ansible_distribution == "CentOS" or ansible_distribution == "Red Hat Enterprise Linux"
+  register: centos_task_result
+
+
+################ RESTART UPDATED LINUX MACHINES #####################
+# sleep 5 seconds and Reboot Linux Servers  
+- name: Reboot Linux System if any New Updates Were Installed
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+  when:
+          - ansible_distribution == "Ubuntu" or ansible_distribution == "Fedora" or ansible_distribution == "CentOS"
+          - ubuntu_task_result.changed or fedora_task_result.changed or centos_task_result.changed
+
+
+# Wait 10 seconds for Linux Servers to reboot          
+- name: Wait Ten Seconds For Linux Machines to Reboot
+  pause:
+          seconds: 10
+  when:
+          - ansible_distribution == "Ubuntu" or ansible_distribution == "Fedora" or ansible_distribution == "CentOS"
+          - ubuntu_task_result.changed or fedora_task_result.changed or centos_task_result.changed
+
+
+# Wait for Linux Server's connection to be reachable            
+- name: Wait for Linux System's Connection to be Reachable
+  wait_for_connection:
+          delay: 50
+          timeout: 100
+  when:
+          - ansible_distribution == "Ubuntu" or ansible_distribution == "Fedora" or ansible_distribution == "CentOS"
+          - ubuntu_task_result.changed or fedora_task_result.changed or centos_task_result.changed 
+
