@@ -1,4 +1,4 @@
-Role Name
+Update
 =========
 
 This Ansible Role is used to update all your remote machines that are Linux based. It first uses your package manager to force an update to your remote machines and registers facts based on that tasks to determine whether to reboot or not based on whether the machine update.
