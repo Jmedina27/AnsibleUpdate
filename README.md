@@ -1,8 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
-
+This Ansible Role is used to update all your remote machines that are Linux based. It first uses your package manager to force an update to your remote machines and registers facts based on that tasks to determine whether to reboot or not based on whether the machine update.
 Requirements
 ------------
 
@@ -10,13 +9,12 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 
 Role Variables
 --------------
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+no variables were used in making this role
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+no other roles were used in making this role
 
 Example Playbook
 ----------------
@@ -25,7 +23,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - update
 
 License
 -------
